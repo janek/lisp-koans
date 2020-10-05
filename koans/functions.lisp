@@ -42,7 +42,7 @@
   (list a b c))
 
 (define-test optional-parameters
-  (assert-equal '(42 24 4224)  (function-with-optional-parameters 42 24 4224))
+  (assert-equal '(42 24 4224) (function-with-optional-parameters 42 24 4224))
   (assert-equal '(42 24 nil) (function-with-optional-parameters 42 24))
   (assert-equal '(42 3 nil) (function-with-optional-parameters 42))
   (assert-equal '(2 3 nil) (function-with-optional-parameters)))
@@ -62,7 +62,7 @@
   x)
 
 (define-test rest-parameter
-  (assert-equal nil (function-with-rest-parameter))
+  (assert-equal '() (function-with-rest-parameter))
   (assert-equal '(1) (function-with-rest-parameter 1))
   (assert-equal '(1 :two 333) (function-with-rest-parameter 1 :two 333)))
 
@@ -77,9 +77,11 @@
   ;; It is not necessary to specify all keyword parameters.
   (assert-equal '(:something 22 nil) (function-with-keyword-parameters :b 22))
   ;; Keyword argument order is not important.
-  (assert-equal '(0 22 -5/2) (function-with-keyword-parameters :b 22 :c -5/2 :a 0))
+  (assert-equal '(0 22 -5/2)
+                (function-with-keyword-parameters :b 22 :c -5/2 :a 0))
   ;; Lisp handles duplicate keyword parameters.
-  (assert-equal '(:something 22 nil) (function-with-keyword-parameters :b 22 :b 40 :b 812)))
+  (assert-equal '(:something 22 nil)
+                (function-with-keyword-parameters :b 22 :b 40 :b 812)))
 
 (defun function-with-keyword-indication
     (&key (a 2 a-provided-p) (b 3 b-provided-p))
@@ -101,8 +103,10 @@
 (define-test funky-parameters
   (assert-equal '(1 nil 1 nil nil) (function-with-funky-parameters 1))
   (assert-equal '(1 2 1 nil (:b 2)) (function-with-funky-parameters 1 :b 2))
-  (assert-equal '(1 2 3 t (:b 2 :c 3)) (function-with-funky-parameters 1 :b 2 :c 3))
-  (assert-equal '(1 2 3 t (:c 3 :b 2)) (function-with-funky-parameters 1 :c 3 :b 2)))
+  (assert-equal '(1 2 3 t (:b 2 :c 3))
+                (function-with-funky-parameters 1 :b 2 :c 3))
+  (assert-equal '(1 2 3 t (:c 3 :b 2))
+                (function-with-funky-parameters 1 :c 3 :b 2)))
 
 (define-test lambda
   ;; A list form starting with the symbol LAMBDA denotes an anonymous function.
@@ -142,37 +146,39 @@
   ;; Both returned functions will refer to the same place.
   (list (function (lambda () x))
         (function (lambda (y) (setq x y)))))
+
+(define-test lexical-closure-interactions
   ;; The macro DESTRUCTURING-BIND is like LET, except it binds the variables
   ;; listed in its first argument to the parts of the list returned by the form
   ;; that is its second argument.
   (destructuring-bind (reader-1 writer-1) (make-reader-and-writer 1)
     (destructuring-bind (reader-2 writer-2) (make-reader-and-writer :one)
-      (assert-equal ____ (funcall reader-1))
+      (assert-equal 1 (funcall reader-1))
       (funcall writer-1 0)
-      (assert-equal ____ (funcall reader-1))
+      (assert-equal 0 (funcall reader-1))
       ;; The two different function pairs refer to different places.
-      (assert-equal ____ (funcall reader-2))
+      (assert-equal :one (funcall reader-2))
       (funcall writer-2 :zero)
-      (assert-equal ____ (funcall reader-2)))))
+      (assert-equal :zero (funcall reader-2)))))
 
 (define-test apply
   ;; The function APPLY applies a function to a list of arguments.
   (let ((function (lambda (x y z) (+ x y z))))
-    (assert-equal ____ (apply function '(100 20 3))))
+    (assert-equal 123 (apply function '(100 20 3))))
   ;; FUNCTION is a special operator that retrieves function objects, defined
   ;; both globally and locally. #'X is syntax sugar for (FUNCTION X).
-  (assert-equal ____ (apply (function +) '(1 2)))
-  (assert-equal ____ (apply #'- '(1 2)))
+  (assert-equal 3 (apply (function +) '(1 2)))
+  (assert-equal -1 (apply #'- '(1 2)))
   ;; Only the last argument to APPLY must be a list.
-  (assert-equal ____ (apply #'+ 1 2 '(3)))
-  (assert-equal ____ (apply #'max 1 2 3 4 '())))
+  (assert-equal 6 (apply #'+ 1 2 '(3)))
+  (assert-equal 4 (apply #'max 1 2 3 4 '())))
 
 (define-test funcall
   ;; The function FUNCALL calls a function with arguments, not expecting a final
   ;; list of arguments.
   (let ((function (lambda (x y z) (+ x y z))))
-    (assert-equal ____ (funcall function 300 20 1)))
-  (assert-equal ____ (funcall (function +) 1 2))
-  (assert-equal ____ (funcall #'- 1 2))
-  (assert-equal ____ (funcall #'+ 1 2 3))
-  (assert-equal ____ (funcall #'max 1 2 3 4)))
+    (assert-equal 321 (funcall function 300 20 1)))
+  (assert-equal 3 (funcall (function +) 1 2))
+  (assert-equal -1 (funcall #'- 1 2))
+  (assert-equal 6 (funcall #'+ 1 2 3))
+  (assert-equal 4 (funcall #'max 1 2 3 4)))

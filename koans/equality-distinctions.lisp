@@ -85,9 +85,9 @@
   (true-or-false? t (equalp "Foo" (copy-seq "Foo")))
   (true-or-false? t (equalp "FOO" "Foo"))
   (true-or-false? t (equalp (make-array '(4 2) :initial-element 0)
-                               (make-array '(4 2) :initial-element 0)))
+                            (make-array '(4 2) :initial-element 0)))
   (true-or-false? t (equalp (make-thing :slot-1 42 :slot-2 :forty-two)
-                               (make-thing :slot-1 42 :slot-2 :forty-two))))
+                            (make-thing :slot-1 42 :slot-2 :forty-two))))
 
 ;;; In additional to the generic equality predicates, Lisp also provides
 ;;; type-specific predicates for numbers, strings, and characters.
@@ -108,9 +108,9 @@
   ;; These functions accept additional keyword arguments that allow one to
   ;; only compare parts of the strings.
   (true-or-false? t (string= "together" "frog" :start1 1 :end1 3
-                                                  :start2 2))
+                                               :start2 2))
   (true-or-false? t (string-equal "together" "FROG" :start1 1 :end1 3
-                                                       :start2 2)))
+                                                    :start2 2)))
 
 (define-test char=
   ;; The function CHAR= behaves just like EQL on characters.
