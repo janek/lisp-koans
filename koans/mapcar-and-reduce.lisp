@@ -52,7 +52,7 @@
 
 (define-test transposition
   ;; MAPCAR gives the function as many arguments as there are lists.
-  (flet ((transpose (lists) (apply #'mapcar ____ lists)))
+  (flet ((transpose (lists) (apply #'mapcar #'list lists)))
     (let ((list '((1 2 3)
                   (4 5 6)
                   (7 8 9)))
@@ -60,8 +60,8 @@
                              (2 5 8)
                              (3 6 9))))
       (assert-equal transposed-list (transpose list))
-      (assert-equal ____ (transpose (transpose list))))
-    (assert-equal ____ (transpose '(("these" "making")
+      (assert-equal list (transpose (transpose list))))
+    (assert-equal '(("these" "pretzels" "are") ("making" "me" "thirsty")) (transpose '(("these" "making")
                                     ("pretzels" "me")
                                     ("are" "thirsty"))))))
 
