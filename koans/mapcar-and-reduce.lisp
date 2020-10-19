@@ -19,36 +19,36 @@
     ;; Inside MAPCAR, he function 1+ will be applied to each element of NUMBERS.
     ;; A new list will be collected from the results.
     (assert-equal '(2 3 4 5 6 7) (mapcar #'1+ numbers))
-    (assert-equal ____ (mapcar #'- numbers))
-    (assert-equal ____ (mapcar #'list numbers))
-    (assert-equal ____ (mapcar #'evenp numbers))
-    (assert-equal ____ (mapcar #'numberp numbers))
-    (assert-equal ____ (mapcar #'stringp numbers))
+    (assert-equal '(-1 -2 -3 -4 -5 -6) (mapcar #'- numbers))
+    (assert-equal '((1) (2) (3) (4) (5) (6)) (mapcar #'list numbers))
+    (assert-equal '(nil t nil t nil t) (mapcar #'evenp numbers))
+    (assert-equal '(t t t t t t) (mapcar #'numberp numbers))
+    (assert-equal '(nil nil nil nil nil nil) (mapcar #'stringp numbers))
     ;; MAPCAR can work on multiple lists. The function will receive one argument
     ;; from each list.
     (let ((other-numbers '(4 8 15 16 23 42)))
-      (assert-equal ____ (mapcar #'+ numbers other-numbers))
-      (assert-equal ____ (mapcar #'* numbers other-numbers))
+      (assert-equal '(5 10 18 20 28 48) (mapcar #'+ numbers other-numbers))
+      (assert-equal '(4 16 45 64 115 252) (mapcar #'* numbers other-numbers))
       ;; The function MOD performs modulo division.
-      (assert-equal ____ (mapcar #'mod other-numbers numbers)))))
+      (assert-equal '(0 0 0 0 3 0) (mapcar #'mod other-numbers numbers)))))
 
 (define-test mapcar-lambda
   ;; MAPCAR is often used with anonymous functions.
   (let ((numbers '(8 21 152 37 403 14 7 -34)))
-    (assert-equal ____ (mapcar (lambda (x) (mod x 10)) numbers)))
+    (assert-equal '(8 1 2 7 3 4 7 6) (mapcar (lambda (x) (mod x 10)) numbers)))
   (let ((strings '("Mary had a little lamb"
                    "Old McDonald had a farm"
                    "Happy birthday to you")))
-    (assert-equal ____ (mapcar (lambda (x) (subseq x 4 12)) strings))))
+    (assert-equal '(" had a l" "McDonald" "y birthd") (mapcar (lambda (x) (subseq x 4 12)) strings))))
 
 (define-test map
   ;; MAP is a variant of MAPCAR that works on any sequences.
   ;; It allows to specify the type of the resulting sequence.
   (let ((string "lorem ipsum"))
-    (assert-equal ____ (map 'string #'char-upcase string))
-    (assert-equal ____ (map 'list #'char-upcase string))
+    (assert-equal "LOREM IPSUM" (map 'string #'char-upcase string))
+    (assert-equal '(#\L #\O #\R #\E #\M #\Space #\I #\P #\S #\U #\M) (map 'list #'char-upcase string))
     ;; Not all vectors containing characters are strings.
-    (assert-equalp ____ (map '(vector t) #'char-upcase string))))
+    (assert-equalp #(#\L #\O #\R #\E #\M #\Space #\I #\P #\S #\U #\M) (map '(vector t) #'char-upcase string))))
 
 (define-test transposition
   ;; MAPCAR gives the function as many arguments as there are lists.
