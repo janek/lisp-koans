@@ -32,18 +32,18 @@
 
 (define-test defmethod-after
   (let ((counter (make-instance 'access-counter :value 42)))
-    (assert-equal ____ (access-count counter))
-    (assert-equal ____ (value counter))
-    (assert-equal ____ (access-count counter))
+    (assert-equal 0 (access-count counter))
+    (assert-equal 42 (value counter))
+    (assert-equal 1 (access-count counter))
     (setf (value counter) 24)
-    (assert-equal ____ (access-count counter))
-    (assert-equal ____ (value counter))
-    (assert-equal ____ (access-count counter))
+    (assert-equal 2 (access-count counter))
+    (assert-equal 24 (value counter))
+    (assert-equal 3 (access-count counter))
     ;; We read the value three more times and discard the result.
     (value counter)
     (value counter)
     (value counter)
-    (assert-equal ____ (access-count counter))))
+    (assert-equal 6 (access-count counter))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
