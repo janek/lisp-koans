@@ -19,7 +19,7 @@
 
 (define-test nil-and-empty-list-are-the-same-thing
   ;; In Common Lisp, NIL is also the empty list.
-  (true-or-false? t '())
+  (true-or-false? nil '())
   (true-or-false? t (not '())))
 
 (define-test in-lisp-many-things-are-true
