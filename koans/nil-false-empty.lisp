@@ -14,13 +14,13 @@
 
 (define-test t-and-nil-are-opposites
   ;; NOT is a function which returns the boolean opposite of its argument.
-  (true-or-false? ____ (not nil))
-  (true-or-false? ____ (not t)))
+  (true-or-false? t (not nil))
+  (true-or-false? nil (not t)))
 
 (define-test nil-and-empty-list-are-the-same-thing
   ;; In Common Lisp, NIL is also the empty list.
-  (true-or-false? ____ '())
-  (true-or-false? ____ (not '())))
+  (true-or-false? t '())
+  (true-or-false? t (not '())))
 
 (define-test in-lisp-many-things-are-true
   ;; In Common Lisp, the canonical values for truth is T.
