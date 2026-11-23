@@ -19,10 +19,10 @@
 
 (define-test function-names
   ;; In these examples, +, -, *, and / are function names.
-  (assert-equal ____ (+ 2 3))
-  (assert-equal ____ (- 1 3))
-  (assert-equal ____ (* 7 4))
-  (assert-equal ____ (/ 100 4)))
+  (assert-equal 5 (+ 2 3))
+  (assert-equal 2 (- 1 3))
+  (assert-equal 28 (* 7 4))
+  (assert-equal 25 (/ 100 4)))
 
 (define-test numberp
   ;; NUMBERP is a predicate which returns true if its argument is a number.
