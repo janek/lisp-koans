@@ -25,7 +25,7 @@
 (define-test in-lisp-many-things-are-true
   ;; In Common Lisp, the canonical values for truth is T.
   ;; However, everything that is non-NIL is true, too.
-  (true-or-false? nil 5)
+  (true-or-false? t 5)
   (true-or-false? nil (not 5))
   (true-or-false? t "a string")
   ;; Even an empty string...
@@ -39,14 +39,14 @@
 
 (define-test and
   ;; The logical operator AND can take multiple arguments.
-  (true-or-false? ____ (and t t t t t))
-  (true-or-false? ____ (and t t nil t t))
+  (true-or-false? t (and t t t t t))
+  (true-or-false? nil (and t t nil t t))
   ;; If all values passed to AND are true, it returns the last value.
-  (assert-equal ____ (and t t t t t 5)))
+  (assert-equal 5 (and t t t t t 5)))
 
 (define-test or
   ;; The logical operator OR can also take multiple arguments.
-  (true-or-false? ____  (or nil nil nil t nil))
+  (true-or-false? t  (or nil nil nil t nil))
   ;; OR returns the first non-NIL value it encounters, or NIL if there are none.
-  (assert-equal ____ (or nil nil nil))
-  (assert-equal ____ (or 1 2 3 4 5)))
+  (assert-equal nil (or nil nil nil))
+  (assert-equal 1 (or 1 2 3 4 5)))
