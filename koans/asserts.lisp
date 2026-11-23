@@ -36,14 +36,14 @@
 ;;; In Common Lisp, the canonical values for truth and falsehood are T and NIL.
 
 (define-test assert-true
-  (assert-true ____))
+  (assert-true T))
 
 (define-test assert-false
-  (assert-false ____))
+  (assert-false NIL))
 
 (define-test true-or-false
-  (true-or-false? ____ (= 34 34))
-  (true-or-false? ____ (= 19 78)))
+  (true-or-false? T (= 34 34))
+  (true-or-false? NIL (= 19 78)))
 
 ;;; Since T and NIL are symbols, you can type them in lowercase or uppercase;
 ;;; by default, Common Lisp will automatically upcase them upon reading.
