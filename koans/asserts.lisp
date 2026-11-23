@@ -50,16 +50,16 @@
 
 (define-test upcase-downcase
   ;; Try inserting a lowercase t here.
-  (assert-equal ____ T)
+  (assert-equal t T)
   ;; Try inserting an uppercase NIL here.
-  (assert-equal ____ nil))
+  (assert-equal NIL nil))
 
 ;;; Sometimes, you will be asked to provide a part of an expression that must be
 ;;; either true or false.
 
 (define-test a-true-assertion
-  (assert-true (= ____ (+ 2 2))))
+  (assert-true (= 4 (+ 2 2))))
 
 (define-test a-false-assertion
-  (assert-false (= ____ (+ 2 2))))
+  (assert-false (= 5 (+ 2 2))))
 
