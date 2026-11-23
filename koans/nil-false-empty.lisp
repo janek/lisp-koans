@@ -25,17 +25,17 @@
 (define-test in-lisp-many-things-are-true
   ;; In Common Lisp, the canonical values for truth is T.
   ;; However, everything that is non-NIL is true, too.
-  (true-or-false? ____ 5)
-  (true-or-false? ____ (not 5))
-  (true-or-false? ____ "a string")
+  (true-or-false? nil 5)
+  (true-or-false? nil (not 5))
+  (true-or-false? t "a string")
   ;; Even an empty string...
-  (true-or-false? ____ "")
+  (true-or-false? t "")
   ;; ...or a list containing a NIL...
-  (true-or-false? ____ (list nil))
+  (true-or-false? t (list nil))
   ;; ...or an array with no elements...
-  (true-or-false? ____ (make-array 0))
+  (true-or-false? t (make-array 0))
   ;; ...or the number zero.
-  (true-or-false? ____ 0))
+  (true-or-false? t 0))
 
 (define-test and
   ;; The logical operator AND can take multiple arguments.
