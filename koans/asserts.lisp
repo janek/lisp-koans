@@ -28,36 +28,38 @@
 ;;; Sometimes, you will be asked to provide values that are equal to something.
 
 (define-test fill-in-the-blanks
-  (assert-equal (+ 1 1) 2)
-  (assert-equal 3.14 3.14)
-  (assert-equal "Hello World" "Hello World"))
+  (assert-equal ____ 2)
+  (assert-equal ____ 3.14)
+  (assert-equal ____ "Hello World"))
 
 ;;; Sometimes, you will be asked to say whether something is true or false,
 ;;; In Common Lisp, the canonical values for truth and falsehood are T and NIL.
 
-(define-test assert-true (assert-true T))
+(define-test assert-true
+  (assert-true ____))
 
-(define-test assert-false (assert-false NIL))
+(define-test assert-false
+  (assert-false ____))
 
 (define-test true-or-false
-  (true-or-false? T (= 34 34))
-  (true-or-false? NIL (= 19 78)))
+  (true-or-false? ____ (= 34 34))
+  (true-or-false? ____ (= 19 78)))
 
 ;;; Since T and NIL are symbols, you can type them in lowercase or uppercase;
 ;;; by default, Common Lisp will automatically upcase them upon reading.
 
 (define-test upcase-downcase
   ;; Try inserting a lowercase t here.
-  (assert-equal t T)
+  (assert-equal ____ T)
   ;; Try inserting an uppercase NIL here.
-  (assert-equal NIL nil))
+  (assert-equal ____ nil))
 
 ;;; Sometimes, you will be asked to provide a part of an expression that must be
 ;;; either true or false.
 
 (define-test a-true-assertion
-  (assert-true (= 4 (+ 2 2))))
+  (assert-true (= ____ (+ 2 2))))
 
 (define-test a-false-assertion
-  (assert-false (= 5 (+ 2 2))))
+  (assert-false (= ____ (+ 2 2))))
 
