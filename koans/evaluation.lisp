@@ -20,19 +20,19 @@
 (define-test function-names
   ;; In these examples, +, -, *, and / are function names.
   (assert-equal 5 (+ 2 3))
-  (assert-equal 2 (- 1 3))
+  (assert-equal -2 (- 1 3))
   (assert-equal 28 (* 7 4))
   (assert-equal 25 (/ 100 4)))
 
 (define-test numberp
   ;; NUMBERP is a predicate which returns true if its argument is a number.
-  (assert-equal ____ (numberp 5))
-  (assert-equal ____ (numberp 2.0))
-  (assert-equal ____ (numberp "five")))
+  (assert-equal t (numberp 5))
+  (assert-equal t (numberp 2.0))
+  (assert-equal nil (numberp "five")))
 
 (define-test evaluation-order
   ;; Arguments to a function are evaluated before the function is called.
-  (assert-equal ____ (* (+ 1 2) (- 13 10))))
+  (assert-equal 9 (* (+ 1 2) (- 13 10))))
 
 (define-test basic-comparisons
   ;; The below functions are boolean functions (predicates) that operate on
